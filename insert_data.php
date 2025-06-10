@@ -1,8 +1,8 @@
 <?php 
-
+include("dbconnect.php");
 if (isset($_POST['tambah_barang'])) {
     
-    $id_barang = $_POST['id_barang'];
+    $id_barang = $_POST['id'];
     $n_barang = $_POST['n_barang'];
     $j_barang = $_POST['j_barang'];
     $m_barang = $_POST['m_barang'];
@@ -15,10 +15,10 @@ if (isset($_POST['tambah_barang'])) {
         header ('location:index.php?message=Nama barang diperlukan');
     } else {
         
-        $query = "insert into 'inventaris' ('id', 'nama_barang', 'jenis', 'merk', 'ukuran', 'stock', 'satuan', 'lokasi')
+        $query = "insert into `inventory` (`id`, `nama_barang`, `jenis`, `merk`, `ukuran`, `stock`, `satuan`, `lokasi`)
         values ('$id_barang', '$n_barang', '$j_barang', '$m_barang', '$u_barang', '$s_barang', '$sa_barang', '$l_barang')";
 
-        $result = mysqli_query($query);
+        $result = mysqli_query($connection,$query);
 
         if (!$result) {
             die ("Gagal Menyimpan".mysqli_error());

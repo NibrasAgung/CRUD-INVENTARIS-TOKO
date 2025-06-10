@@ -17,6 +17,8 @@
                 <th>Stock</th>
                 <th>Satuan</th>
                 <th>Lokasi</th>
+                <th>Edit</th>
+                <th>Hapus</th>
             </tr>
         </thead>
         <tbody>
@@ -25,7 +27,7 @@
                 $result = mysqli_query($connection, $query);
 
                 if (!$result) {
-                    die ("Query Gagal".mysqli_error($connection));
+                    die ("Query Gagal".mysqli_error());
                 } else {
                     while($row = mysqli_fetch_assoc($result)) {
                         ?>
@@ -39,6 +41,8 @@
                             <td> <?php echo $row['stock'] ?> </td>
                             <td> <?php echo $row['satuan'] ?> </td>
                             <td> <?php echo $row['lokasi'] ?> </td>
+                            <td> <a href="newupdate.php?id=<?php echo $row['id'] ?>" class="btn btn-success">Edit</a> </td>
+                            <td> <a href="deletepage.php?id=<?php echo $row['id'] ?>" class="btn btn-danger">Hapus</a> </td>
                         </tr>
 
                         <?php
@@ -54,18 +58,31 @@
 
     if (isset($_GET['message'])) {
         echo "<h6 class='text-center text-danger mt-3'>".$_GET['message']."</h6>";
-    } else {
-        $query = "insert into 'inventaris' ('id', 'nama_barang', 'jenis', 'merk', 'ukuran', 'stock', 'satuan', 'lokasi')
-        values ('$id_barang', '$n_barang', '$j_barang', '$m_barang', '$u_barang', '$s_barang', '$sa_barang', '$l_barang')";
+    } 
 
-        $result = mysqli_query($query);
+    ?>
 
-        if (!$result) {
-            die ("Gagal Menyimpan".mysqli_error());
-        } else {
-            header('location:index.php?insert_msg=Barang telah disimpan');
-        }
-    }
+    <?php 
+
+    if (isset($_GET['insert_msg'])) {
+        echo "<h6 class='text-center text-danger mt-3'>".$_GET['insert_msg']."</h6>";
+    } 
+
+    ?>
+
+    <?php 
+
+    if (isset($_GET['update_msg'])) {
+        echo "<h6 class='text-center text-danger mt-3'>".$_GET['update_msg']."</h6>";
+    } 
+
+    ?>
+
+     <?php 
+
+    if (isset($_GET['udelete_msg'])) {
+        echo "<h6 class='text-center text-danger mt-3'>".$_GET['delete_msg']."</h6>";
+    } 
 
     ?>
 
@@ -84,8 +101,8 @@
 
                 <div class="modal-body">
                         <div class="form-group">
-                            <label for="id_barang">ID</label>
-                            <input type="text" name="id_barang" class="form-control">
+                            <label for="id">ID</label>
+                            <input type="text" name="id" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="n_barang">Nama Barang</label>
